@@ -27,7 +27,6 @@ var/
 .vscode/
 
 # Output files
-output/
 *.log
 
 # Kaggle
