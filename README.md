@@ -10,6 +10,25 @@
 
 A comprehensive data analysis and preparation solution for the Titanic dataset, featuring professional-grade visualizations, detailed reporting, and thorough documentation of all decisions and insights.
 
+## Professional Assignment Section (NEW)
+
+The HTML report now features a dedicated **Assignment Part: Data Analysis & Preparation** section at the top, addressing all required questions with:
+- **Four detailed subsections:**
+  1. Understanding Raw Data
+  2. Data Cleaning Techniques
+  3. Data Transformation
+  4. Reflection and Insights
+- **Professional formatting** with icons, tables, and clear explanations for each question.
+- **Key highlights:**
+  - Table of columns, types, missing values, and descriptions
+  - Explicit answers on dataset structure, missing values, duplicates, and common issues
+  - Cleaning and transformation strategies with justifications
+  - Reflection on challenges and importance of each step
+
+**To view this section:**
+- Open `output/analysis_report.html` in your browser.
+- The Assignment section is at the top, visually distinct and easy to navigate.
+
 ## Table of Contents
 1. [Features](#features)
 2. [Setup Instructions](#setup-instructions)
@@ -150,7 +169,7 @@ The analysis generates several professional output files:
    - Processing statistics
 
 3. `output/analysis_report.html`
-   - Professional interactive report
+   - Professional interactive report with Assignment Part section
    - Publication-quality visualizations
    - Comprehensive analysis details
    - Easy to share and view
