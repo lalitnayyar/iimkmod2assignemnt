@@ -1,0 +1,13 @@
+Titanic Dataset Analysis Insights
+================================
+
+1. Data Quality:
+- Original dataset had 891 records
+- Missing values were handled for Age and Embarked columns
+- Cabin column was transformed into a binary feature due to high missing values
+
+2. Feature Engineering:
+- Created 'Has_Cabin' feature to capture cabin information
+- Removed non-essential columns: Name, Ticket, PassengerId
+- Encoded categorical variables: Sex, Embarked
+- Standardized numerical features: Age, Fare
