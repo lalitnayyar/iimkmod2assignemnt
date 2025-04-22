@@ -202,6 +202,77 @@ class TitanicDataAnalyzer:
         
         # Generate HTML report
         self._generate_html_report()
+        
+        # Generate detailed final report in markdown
+        self.generate_detailed_final_report()
+
+    def generate_detailed_final_report(self):
+        """
+        Generate a comprehensive, detailed final report covering:
+        1. Understanding Raw Data
+        2. Data Cleaning Techniques
+        3. Data Transformation
+        4. Reflection and Insights
+        The report is saved as a markdown file in the output directory.
+        """
+        report_lines = []
+        report_lines.append("# Titanic Dataset Analysis: Detailed Final Report\n")
+        report_lines.append(f"**Generated on:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+
+        # 1. Understanding Raw Data
+        report_lines.append("## 1. Understanding Raw Data\n")
+        info = self.data_quality_report.get('basic_info', {})
+        report_lines.append(f"- **Total Records**: {info.get('total_records', 'N/A')}\n")
+        report_lines.append(f"- **Number of Features**: {info.get('total_columns', 'N/A')}\n")
+        report_lines.append("\n### Column Names, Types, and Descriptions\n")
+        for col, dtype in info.get('column_types', {}).items():
+            report_lines.append(f"- **{col}**: {dtype}\n")
+        report_lines.append("\n### Common Issues in Raw Data\n")
+        mv = self.data_quality_report.get('missing_values', {})
+        report_lines.append("#### Missing Values by Column\n")
+        for col, count in mv.items():
+            report_lines.append(f"- **{col}**: {count} missing\n")
+        report_lines.append("\n#### Duplicate Records\n")
+        dups = info.get('duplicate_count', 0)
+        report_lines.append(f"- **Number of duplicate records**: {dups}\n")
+
+        # 2. Data Cleaning Techniques
+        report_lines.append("\n## 2. Data Cleaning Techniques\n")
+        report_lines.append("### Missing Value Handling\n")
+        report_lines.append("- **Age**: Imputed using stratified median (by Pclass & Sex). Retained due to predictive power.\n")
+        report_lines.append("- **Cabin**: Transformed to binary feature 'Has_Cabin'. Too many missing for imputation, but presence is informative.\n")
+        report_lines.append("- **Embarked**: Imputed with mode. Very few missing, important feature.\n")
+        report_lines.append("\n### Non-Essential Columns Removed\n")
+        report_lines.append("- **Name, Ticket, PassengerId**: Removed. Justification: identifiers/high cardinality, not predictive.\n")
+        report_lines.append("\n### Feature Selection Justification\n")
+        report_lines.append("- Only features with predictive value and relevance to survival were retained.\n")
+
+        # 3. Data Transformation
+        report_lines.append("\n## 3. Data Transformation\n")
+        report_lines.append("### Categorical Variable Encoding\n")
+        report_lines.append("- **Sex, Embarked**: Label encoded.\n")
+        report_lines.append("### Numerical Feature Scaling\n")
+        report_lines.append("- **Age, Fare**: Standardized using StandardScaler.\n")
+        report_lines.append("\n### Data Transformation Justification\n")
+        report_lines.append("- Encoding and scaling ensure compatibility with ML models, preserves meaning, prevents bias from scale differences.\n")
+
+        # 4. Reflection and Insights
+        report_lines.append("\n## 4. Reflection and Insights\n")
+        report_lines.append("### Challenges\n")
+        report_lines.append("- High missing rate in Cabin required feature engineering.\n")
+        report_lines.append("- Deciding imputation strategies for Age and Embarked.\n")
+        report_lines.append("- Feature selection to balance information and noise.\n")
+        report_lines.append("\n### Importance of Each Step\n")
+        report_lines.append("- Data understanding guides all cleaning and transformation.\n")
+        report_lines.append("- Cleaning ensures reliable, unbiased input for models.\n")
+        report_lines.append("- Transformation makes data suitable for ML algorithms.\n")
+        report_lines.append("- Careful prep improves model accuracy and trustworthiness.\n")
+
+        # Save report
+        report_path = self.output_dir / "detailed_final_report.md"
+        with open(report_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(report_lines))
+        logging.info(f"Detailed final report saved to {report_path}")
 
     def _create_data_understanding_plots(self):
         """Create visualizations for initial data understanding."""
@@ -265,6 +336,108 @@ class TitanicDataAnalyzer:
 
     def _generate_html_report(self):
         """Generate a professional HTML report with all analyses and visualizations."""
+        # Prepare icons (using Unicode emojis for portability)
+        icons = {
+            "structure": "📊",
+            "records": "🧾",
+            "columns": "🗂️",
+            "types": "🔤",
+            "issues": "⚠️",
+            "missing": "❓",
+            "duplicates": "🔁",
+            "cleaning": "🧹",
+            "decision": "✅",
+            "feature": "🏷️",
+            "transformation": "🔄",
+            "encoding": "🔢",
+            "scaling": "📏",
+            "reflection": "💡",
+            "insight": "📝"
+        }
+
+        # --- Assignment Part Section Content ---
+        # 1. Understanding Raw Data
+        info = self.data_quality_report.get('basic_info', {})
+        mv = self.data_quality_report.get('missing_values', {})
+        column_types = info.get('column_types', {})
+        columns_table = ''.join([
+            f'<tr><td>{col}</td><td>{dtype}</td><td>{mv.get(col, 0)}</td></tr>'
+            for col, dtype in column_types.items()
+        ])
+        # Column descriptions (hardcoded for Titanic)
+        column_desc = {
+            'PassengerId': 'Unique identifier for each passenger',
+            'Survived': 'Survival (0 = No, 1 = Yes)',
+            'Pclass': 'Ticket class (1 = 1st, 2 = 2nd, 3 = 3rd)',
+            'Name': 'Name of the passenger',
+            'Sex': 'Gender',
+            'Age': 'Age in years',
+            'SibSp': 'Number of siblings/spouses aboard',
+            'Parch': 'Number of parents/children aboard',
+            'Ticket': 'Ticket number',
+            'Fare': 'Passenger fare',
+            'Cabin': 'Cabin number',
+            'Embarked': 'Port of Embarkation (C = Cherbourg, Q = Queenstown, S = Southampton)'
+        }
+        columns_desc_table = ''.join([
+            f'<tr><td>{col}</td><td>{column_desc.get(col, "-")}</td></tr>'
+            for col in column_types.keys()
+        ])
+        assignment_section = f'''
+        <div class="section" style="border:2px solid #3498db; border-radius:8px; margin-top:40px;">
+            <h2 style="color:#2980b9;">Assignment Part: Data Analysis & Preparation</h2>
+            <div class="description">
+                <h3>{icons['structure']} 1. Understanding Raw Data</h3>
+                <table style="width:100%; border-collapse:collapse; margin-bottom:16px;">
+                    <tr style="background:#f5f5f5;"><th>Column</th><th>Type</th><th>Missing Values</th></tr>
+                    {columns_table}
+                </table>
+                <table style="width:100%; border-collapse:collapse; margin-bottom:16px;">
+                    <tr style="background:#f5f5f5;"><th>Column</th><th>Description</th></tr>
+                    {columns_desc_table}
+                </table>
+                <ul>
+                    <li>{icons['records']} <b>Total Records:</b> {info.get('total_records','N/A')}</li>
+                    <li>{icons['columns']} <b>Number of Columns:</b> {info.get('total_columns','N/A')}</li>
+                    <li>{icons['types']} <b>Data Types:</b> See table above</li>
+                    <li>{icons['issues']} <b>Common Issues:</b> Missing values, high cardinality in some columns, possible outliers</li>
+                    <li>{icons['missing']} <b>Missing Values:</b> See table above</li>
+                    <li>{icons['duplicates']} <b>Duplicate Records:</b> {info.get('duplicate_count',0)}</li>
+                </ul>
+            </div>
+            <div class="description">
+                <h3>{icons['cleaning']} 2. Data Cleaning Techniques</h3>
+                <ul>
+                    <li>{icons['cleaning']} <b>Missing Value Handling:</b> Age imputed by stratified median (Pclass & Sex), Embarked by mode, Cabin transformed to Has_Cabin binary</li>
+                    <li>{icons['decision']} <b>Column Retention:</b> Age and Embarked retained due to predictive value; Cabin not imputed directly, but presence encoded</li>
+                    <li>{icons['feature']} <b>Non-essential Columns Removed:</b> PassengerId, Name, Ticket, Cabin (justification: identifiers, high cardinality, not predictive)</li>
+                    <li>{icons['feature']} <b>Feature Selection:</b> Only features relevant to survival retained; removal justified by lack of predictive value or redundancy</li>
+                </ul>
+                <table style="width:100%; border-collapse:collapse; margin-bottom:16px;">
+                    <tr style="background:#f5f5f5;"><th>Column</th><th>Retained?</th><th>Imputation/Reason</th></tr>
+                    <tr><td>Age</td><td>Yes</td><td>Stratified median by Pclass & Sex</td></tr>
+                    <tr><td>Cabin</td><td>No (converted)</td><td>Too many missing; encoded as Has_Cabin</td></tr>
+                    <tr><td>Embarked</td><td>Yes</td><td>Imputed by mode</td></tr>
+                </table>
+            </div>
+            <div class="description">
+                <h3>{icons['transformation']} 3. Data Transformation</h3>
+                <ul>
+                    <li>{icons['encoding']} <b>Categorical Encoding:</b> Sex and Embarked label-encoded</li>
+                    <li>{icons['scaling']} <b>Scaling:</b> Age and Fare standardized (StandardScaler)</li>
+                    <li>{icons['transformation']} <b>Justification:</b> Ensures compatibility with ML models, preserves meaning, prevents bias from scale differences</li>
+                </ul>
+            </div>
+            <div class="description">
+                <h3>{icons['reflection']} 4. Reflection and Insights</h3>
+                <ul>
+                    <li>{icons['reflection']} <b>Challenges:</b> High missing rate in Cabin required feature engineering.</li>
+                    <li>{icons['insight']} <b>Importance:</b> Each step (understanding, cleaning, transformation) is critical for robust, reliable ML models</li>
+                </ul>
+            </div>
+        </div>
+        '''
+
         html_content = f"""
         <!DOCTYPE html>
         <html>
@@ -301,7 +474,7 @@ class TitanicDataAnalyzer:
                     <p><strong>Email:</strong> lalitnayyar@gmail.com</p>
                     <p><strong>Date:</strong> {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
                 </div>
-
+                {assignment_section}
                 <div class="section">
                     <h2>Assignment Overview</h2>
                     <div class="description">
@@ -543,9 +716,10 @@ class TitanicDataAnalyzer:
         </body>
         </html>
         """
-        
-        with open(self.output_dir / "analysis_report.html", 'w') as f:
+        # Save the HTML report
+        with open(self.output_dir / "analysis_report.html", 'w', encoding='utf-8') as f:
             f.write(html_content)
+        logging.info(f"HTML report saved to {self.output_dir / 'analysis_report.html'}")
 
     def _impute_age_stratified(self) -> pd.Series:
         """
@@ -601,6 +775,7 @@ def main():
         print("- output/analysis_insights.json (Detailed insights)")
         print("- output/analysis_report.html (Visual report)")
         print("- output/plots/* (Visualizations)")
+        print("- output/detailed_final_report.md (Detailed final report)")
         print("\nOpen analysis_report.html in a web browser to view the complete report.")
         
     except Exception as e:
