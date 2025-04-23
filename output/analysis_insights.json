@@ -1,0 +1,51 @@
+{
+    "analysis_timestamp": "2025-04-22 16:52:29",
+    "data_quality": {
+        "original_shape": [
+            891,
+            12
+        ],
+        "cleaned_shape": [
+            891,
+            9
+        ],
+        "transformed_shape": [
+            891,
+            9
+        ],
+        "missing_values_handled": {
+            "PassengerId": 0,
+            "Survived": 0,
+            "Pclass": 0,
+            "Name": 0,
+            "Sex": 0,
+            "Age": 177,
+            "SibSp": 0,
+            "Parch": 0,
+            "Ticket": 0,
+            "Fare": 0,
+            "Cabin": 687,
+            "Embarked": 2
+        }
+    },
+    "transformations_applied": {
+        "categorical_encoding": [
+            "Sex",
+            "Embarked"
+        ],
+        "numerical_scaling": [
+            "Age",
+            "Fare"
+        ],
+        "feature_engineering": [
+            "Has_Cabin"
+        ]
+    },
+    "data_preparation_steps": [
+        "1. Analyzed raw data structure and quality",
+        "2. Handled missing values using appropriate strategies",
+        "3. Removed non-essential columns",
+        "4. Encoded categorical variables",
+        "5. Scaled numerical features"
+    ]
+}

@@ -10,25 +10,6 @@
 
 A comprehensive data analysis and preparation solution for the Titanic dataset, featuring professional-grade visualizations, detailed reporting, and thorough documentation of all decisions and insights.
 
-## Professional Assignment Section (NEW)
-
-The HTML report now features a dedicated **Assignment Part: Data Analysis & Preparation** section at the top, addressing all required questions with:
-- **Four detailed subsections:**
-  1. Understanding Raw Data
-  2. Data Cleaning Techniques
-  3. Data Transformation
-  4. Reflection and Insights
-- **Professional formatting** with icons, tables, and clear explanations for each question.
-- **Key highlights:**
-  - Table of columns, types, missing values, and descriptions
-  - Explicit answers on dataset structure, missing values, duplicates, and common issues
-  - Cleaning and transformation strategies with justifications
-  - Reflection on challenges and importance of each step
-
-**To view this section:**
-- Open `output/analysis_report.html` in your browser.
-- The Assignment section is at the top, visually distinct and easy to navigate.
-
 ## Table of Contents
 1. [Features](#features)
 2. [Setup Instructions](#setup-instructions)
@@ -169,7 +150,7 @@ The analysis generates several professional output files:
    - Processing statistics
 
 3. `output/analysis_report.html`
-   - Professional interactive report with Assignment Part section
+   - Professional interactive report
    - Publication-quality visualizations
    - Comprehensive analysis details
    - Easy to share and view
@@ -219,93 +200,35 @@ class TitanicDataAnalyzer:
         # Applies feature transformations
         
     def generate_insights(self) -> Dict:
-        # Generates comprehensive insights
+        # Creates comprehensive analysis report
 ```
-
-### Processing Statistics
-
-#### 1. Data Understanding
-- Total Records: 891
-- Total Features: 12
-- Numerical Features: 7
-- Categorical Features: 5
-- Initial Missing Values:
-  - Age: 177 records
-  - Cabin: 687 records
-  - Embarked: 2 records
-
-#### 2. Data Cleaning
-- Records After Cleaning: 891
-- Features After Cleaning: 9
-- Missing Values Handled: 866
-- Features Dropped: 3
-- Quality Improvements:
-  - Age imputation using stratified medians
-  - Cabin conversion to binary feature
-  - Embarked filled with mode value
-
-#### 3. Feature Engineering
-- New Encoded Features: 2
-- Scaled Features: 2
-- Binary Features: 3
-- Transformations:
-  - Label encoding for Sex and Embarked
-  - Standardization for Age and Fare
-  - Binary encoding for Cabin presence
-
-#### 4. Final Output
-- Final Records: 891
-- Final Features: 9
-- Memory Usage: ~68 KB
-- Remaining Null Values: 0
-- Output Files:
-  - Processed dataset (CSV)
-  - Analysis insights (JSON)
-  - Visual report (HTML)
-  - Feature plots (PNG)
-
-## Technical Requirements
-
-### Dependencies
-```
-pandas>=1.3.0
-numpy>=1.20.0
-scikit-learn>=0.24.0
-seaborn>=0.11.0
-matplotlib>=3.4.0
-```
-
-### System Requirements
-- Python 3.8 or higher
-- 4GB RAM recommended
-- 100MB free disk space
 
 ## Submission Details
 
 ### Files Submitted
-1. `Lalit_Nayyar_Assignment_2.1.md`
-   - Assignment documentation
-   - Analysis approach
-   - Implementation decisions
-   - Results interpretation
+1. `Lalit_Nayyar_Assignment_2.1.md` - Assignment documentation
+2. `Lalit_Nayyar_titanic_analysis.py` - Python implementation
+3. `output/` - Analysis results and visualizations
 
-2. `Lalit_Nayyar_titanic_analysis.py`
-   - Main implementation
-   - Data processing pipeline
-   - Analysis functions
-   - Report generation
+### Requirements Met
+* Comprehensive documentation of approach and insights
+* Clear justification of all decisions
+* Original work demonstrating understanding of concepts
+* Proper file naming convention followed
+* Complete implementation with all required components
 
-3. Output Files
-   - Processed dataset
-   - Analysis insights
-   - Visual report
-   - Feature plots
-
-### Contact Information
-- **Name:** Lalit Nayyar
-- **Email:** lalitnayyar@gmail.com
-- **Course:** IIMK Professional Certificate Program
-- **Assignment:** Week 2 - Required Assignment 2.1
+### Technical Requirements
+- Python 3.x
+- Required packages:
+  - pandas>=1.5.0
+  - numpy>=1.23.0
+  - scikit-learn>=1.0.0
+  - seaborn>=0.12.0
+  - matplotlib>=3.6.0
+  - kaggle>=1.5.12
+  - jupyter>=1.0.0
+  - ipykernel>=6.0.0
 
 ## License
-This project is part of the IIMK Professional Certificate Program coursework and is subject to the program's terms and conditions.
+
+This project is created for educational purposes as part of the IIMK's Professional Certificate in Data Science and Artificial Intelligence for Managers course assignment.
